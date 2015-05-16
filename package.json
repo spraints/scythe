@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "src/main.js",
   "devDependencies": {
-    "electron-prebuilt": "^0.26.0"
+    "electron-prebuilt": "^0.26.0",
+    "lunr": "0.5.9"
   }
 }
