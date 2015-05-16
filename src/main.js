@@ -1,6 +1,7 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 var Menu = require('menu');
+var dialog = require('dialog');
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -72,9 +73,23 @@ app.on('ready', function() {
         {
           label: "Open...",
           accelerator: "Command+O",
-          selector: "open:"
+          click: function() { openFile() }
         }
       ]
     }
   ]))
+
+  function openFile() {
+    var options = {
+      properties: ["openFile"],
+      filters: [
+        { name: "Log Files", extensions: ['log'] }
+      ]
+    }
+    function callback(path) {
+      mainWindow.webContents.send("open-file", path);
+    }
+    dialog.showOpenDialog(options, callback)
+  }
+
 });
