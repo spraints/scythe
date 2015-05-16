@@ -1,5 +1,6 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
+var Menu = require('menu');
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -29,4 +30,51 @@ app.on('ready', function() {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate([
+    {
+      label: "Log Viewer",
+      submenu: [
+        {
+          label: 'Services',
+          submenu: []
+        },
+        {
+          type: 'separator'
+        },
+        {
+          label: 'Hide Log Viewer',
+          accelerator: 'Command+H',
+          selector: 'hide:'
+        },
+        {
+          label: 'Hide Others',
+          accelerator: 'Command+Shift+H',
+          selector: 'hideOtherApplications:'
+        },
+        {
+          label: 'Show All',
+          selector: 'unhideAllApplications:'
+        },
+        {
+          type: 'separator'
+        },
+        {
+          label: 'Quit',
+          accelerator: 'Command+Q',
+          click: function() { app.quit(); }
+        },
+      ],
+    },
+    {
+      label: "File",
+      submenu: [
+        {
+          label: "Open...",
+          accelerator: "Command+O",
+          selector: "open:"
+        }
+      ]
+    }
+  ]))
 });
