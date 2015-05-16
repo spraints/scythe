@@ -1,0 +1,8 @@
+{
+  "name": "matts-log-viewer",
+  "version": "0.0.1",
+  "main": "main.js",
+  "devDependencies": {
+    "electron-prebuilt": "^0.26.0"
+  }
+}
