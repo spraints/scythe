@@ -9,7 +9,7 @@ function LogFile(stream) {
   stream
     .pipe(logfmt.streamParser())
     .pipe(through(function(parsed) { lines.push(parsed); }))
-    .on("error", function() { self.emit("error"); })
+    .on("error", function() { self.emit("error", arguments); })
     .on("end", function() { self.emit("end"); });
 
   self.lines = lines;

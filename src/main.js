@@ -3,6 +3,10 @@ var BrowserWindow = require('browser-window');  // Module to create native brows
 var Menu = require('menu');
 var dialog = require('dialog');
 
+var fs = require('fs');
+
+var LogFile = require('./logfile');
+
 // Report crashes to our server.
 require('crash-reporter').start();
 
@@ -81,13 +85,18 @@ app.on('ready', function() {
 
   function openFile() {
     var options = {
-      properties: ["openFile"],
+      properties: ["openFile", "multiSelections"],
       filters: [
         { name: "Log Files", extensions: ['log'] }
       ]
     }
-    function callback(path) {
-      mainWindow.webContents.send("open-file", path);
+    function callback(paths) {
+      paths.forEach(function(path) {
+        var stream = fs.createReadStream(path);
+        var logfile = new LogFile(stream);
+        logfile.on("error", function() { console.log("boom!"); console.log(arguments); });
+        mainWindow.webContents.send("open-file", path, logfile);
+      });
     }
     dialog.showOpenDialog(options, callback)
   }
