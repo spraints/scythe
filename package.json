@@ -6,5 +6,7 @@
     "electron-prebuilt": "^0.26.0"
   },
   "dependencies": {
+    "logfmt": "^1.2.0",
+    "through": "^2.3.7"
   }
 }
