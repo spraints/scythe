@@ -1,3 +1,4 @@
 var LogFile = require("./src/logfile");
 
-lf = new LogFile(process.stdin);
+var lf = new LogFile(process.stdin);
+lf.on("end", function() { console.log(lf.lines) });
